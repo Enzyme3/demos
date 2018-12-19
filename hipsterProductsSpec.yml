@@ -2,6 +2,7 @@ swagger: '2.0'
 info:
   title: Hipster Products API
   version: "1"
+  description: Products API for Hipster Application
 host:
   amer-poc17-test.apigee.net
 basePath:
