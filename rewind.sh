@@ -44,13 +44,13 @@ echo "====Product created===="
 
 # Create Developer
 echo "====Creating developer===="
-curl -X POST --fail -u ${APIGEE_USER}:${APIGEE_PW} --header "Content-Type: application/json" --header "Authorization: Basic a2V2aW5wbXdwYXJrQGdvb2dsZS5jb206RVNHVjByZDNsQXBpZ2VlIQ==" -d "{
+curl -X POST --fail -u ${APIGEE_USER}:${APIGEE_PW} --header "Content-Type: application/json" -d "{
  \"email\" : \"alice.smith@gmail.com\",
  \"firstName\" : \"Alice\",
  \"lastName\" : \"Smith\",
  \"userName\" : \"alice.smith@gmail.com\",
  \"attributes\" : []
-}" "https://api.enterprise.apigee.com/v1/organizations/amer-poc15/developers"
+}" "https://api.enterprise.apigee.com/v1/organizations/${APIGEE_ORG}/developers"
 echo ""
 echo "====Developer created===="
 
@@ -62,7 +62,7 @@ app=$(curl -X POST --fail -u ${APIGEE_USER}:${APIGEE_PW} --header "Content-Type:
  \"keyExpiresIn\" : -1,
  \"attributes\" : [],
  \"scopes\" : []
-}" "https://api.enterprise.apigee.com/v1/organizations/amer-poc15/developers/alice.smith@gmail.com/apps")
+}" "https://api.enterprise.apigee.com/v1/organizations/${APIGEE_ORG}/developers/alice.smith@gmail.com/apps")
 echo ""
 echo "====App Created===="
 
