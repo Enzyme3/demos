@@ -69,5 +69,5 @@ echo "====App Created===="
 apikey=$( jq -r  '.credentials[0].consumerKey' <<< "${app}" )
 echo ""
 echo "==========="
-echo "Rewind succeeded""
+echo "Rewind succeeded"
 echo "Save and use the apikey for this lab: ${apikey}"
