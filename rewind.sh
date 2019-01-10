@@ -38,7 +38,7 @@ curl -X POST --fail -u ${APIGEE_USER}:${APIGEE_PW} --header "Content-Type: appli
   \"quotaInterval\": \"1\",
   \"quotaTimeUnit\": \"minute\",
     \"scopes\": []
-}" "https://api.enterprise.apigee.com/v1/organizations/amer-poc15/apiproducts"
+}" "https://api.enterprise.apigee.com/v1/organizations/${APIGEE_ORG}/apiproducts"
 echo ""
 echo "====Product created===="
 
