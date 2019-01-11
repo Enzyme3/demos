@@ -13,13 +13,14 @@ APP_NAME="Product-App"
 
 # Upload New Proxy
 echo "====Uploading new proxy 'catalog'===="
-curl -X POST --fail -u ${APIGEE_USER}:${APIGEE_PW} -F "file=@apiproxy.zip" "https://api.enterprise.apigee.com/v1/organizations/${APIGEE_ORG}/apis?action=import&name=${PROXY_NAME}"
+uploadResponse=$(curl -X POST --fail -u ${APIGEE_USER}:${APIGEE_PW} -F "file=@apiproxy.zip" "https://api.enterprise.apigee.com/v1/organizations/${APIGEE_ORG}/apis?action=import&name=${PROXY_NAME}")
+revision=$( jq -r  '.revision' <<< "${uploadResponse}" )
 echo ""
-echo "====Upload complete===="
+echo "====Upload complete - revision: ${revision}===="
 
 # Deploy uploaded proxy
 echo "====Deploying proxy catalog to org:${APIGEE_ORG} and env:${APIGEE_ENV}===="
-curl -X POST --fail -u ${APIGEE_USER}:${APIGEE_PW} --header "Content-Type: application/x-www-form-urlencoded" "https://api.enterprise.apigee.com/v1/organizations/${APIGEE_ORG}/environments/${APIGEE_ENV}/apis/${PROXY_NAME}/revisions/1/deployments"
+curl -X POST --fail -u ${APIGEE_USER}:${APIGEE_PW} --header "Content-Type: application/x-www-form-urlencoded" "https://api.enterprise.apigee.com/v1/organizations/${APIGEE_ORG}/environments/${APIGEE_ENV}/apis/${PROXY_NAME}/revisions/${revision}/deployments"
 echo ""
 echo "====Deployment complete===="
 
