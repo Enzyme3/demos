@@ -24,6 +24,12 @@ curl -X POST --fail -u ${APIGEE_USER}:${APIGEE_PW} --header "Content-Type: appli
 echo ""
 echo "====Deployment complete===="
 
+echo "====Cleaning up app, developer, and product===="
+curl -X DELETE -u ${APIGEE_USER}:${APIGEE_PW} "https://api.enterprise.apigee.com/v1/organizations/${APIGEE_ORG}/developers/alice.smith@gmail.com/apps/${APP_NAME}"
+curl -X DELETE -u ${APIGEE_USER}:${APIGEE_PW} "https://api.enterprise.apigee.com/v1/organizations/${APIGEE_ORG}/developers/alice.smith@gmail.com"
+curl -X DELETE -u ${APIGEE_USER}:${APIGEE_PW} "https://api.enterprise.apigee.com/v1/organizations/${APIGEE_ORG}/apiproducts/${PRODUCT_NAME}"
+echo "====Cleanup completed===="
+
 # Create Product
 echo "====Creating product: ${PRODUCT_NAME}===="
 curl -X POST --fail -u ${APIGEE_USER}:${APIGEE_PW} --header "Content-Type: application/json" -d "{
