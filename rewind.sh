@@ -25,8 +25,8 @@ echo ""
 echo "====Deployment complete===="
 
 echo "====Cleaning up app, developer, and product===="
-curl -X DELETE -u ${APIGEE_USER}:${APIGEE_PW} "https://api.enterprise.apigee.com/v1/organizations/${APIGEE_ORG}/developers/alice.smith@gmail.com/apps/${APP_NAME}"
-curl -X DELETE -u ${APIGEE_USER}:${APIGEE_PW} "https://api.enterprise.apigee.com/v1/organizations/${APIGEE_ORG}/developers/alice.smith@gmail.com"
+curl -X DELETE -u ${APIGEE_USER}:${APIGEE_PW} "https://api.enterprise.apigee.com/v1/organizations/${APIGEE_ORG}/developers/alice.smith@example.com/apps/${APP_NAME}"
+curl -X DELETE -u ${APIGEE_USER}:${APIGEE_PW} "https://api.enterprise.apigee.com/v1/organizations/${APIGEE_ORG}/developers/alice.smith@example.com"
 curl -X DELETE -u ${APIGEE_USER}:${APIGEE_PW} "https://api.enterprise.apigee.com/v1/organizations/${APIGEE_ORG}/apiproducts/${PRODUCT_NAME}"
 echo "====Cleanup completed===="
 
@@ -52,10 +52,10 @@ echo "====Product created===="
 # Create Developer
 echo "====Creating developer===="
 curl -X POST --fail -u ${APIGEE_USER}:${APIGEE_PW} --header "Content-Type: application/json" -d "{
- \"email\" : \"alice.smith@gmail.com\",
+ \"email\" : \"alice.smith@example.com\",
  \"firstName\" : \"Alice\",
  \"lastName\" : \"Smith\",
- \"userName\" : \"alice.smith@gmail.com\",
+ \"userName\" : \"alice.smith@example.com\",
  \"attributes\" : []
 }" "https://api.enterprise.apigee.com/v1/organizations/${APIGEE_ORG}/developers"
 echo ""
@@ -69,7 +69,7 @@ app=$(curl -X POST --fail -u ${APIGEE_USER}:${APIGEE_PW} --header "Content-Type:
  \"keyExpiresIn\" : -1,
  \"attributes\" : [],
  \"scopes\" : []
-}" "https://api.enterprise.apigee.com/v1/organizations/${APIGEE_ORG}/developers/alice.smith@gmail.com/apps")
+}" "https://api.enterprise.apigee.com/v1/organizations/${APIGEE_ORG}/developers/alice.smith@example.com/apps")
 echo ""
 echo "====App Created===="
 
