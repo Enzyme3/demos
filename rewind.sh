@@ -6,7 +6,6 @@ echo "====Starting Apigee Rewind Script===="
 [ -z "$APIGEE_PW" ] && { echo "Need to set APIGEE_PW"; exit 1; }
 [ -z "$APIGEE_ORG" ] && { echo "Need to set APIGEE_ORG"; exit 1; }
 
-echo "The passed in credentials are $APIGEE_USER and $APIGEE_PW"
 APIGEE_ENV=test
 PROXY_NAME=catalog
 PRODUCT_NAME=catalog-Product
