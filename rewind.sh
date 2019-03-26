@@ -6,6 +6,7 @@ echo "====Starting Apigee Rewind Script===="
 [ -z "$APIGEE_PW" ] && { echo "Need to set APIGEE_PW"; exit 1; }
 [ -z "$APIGEE_ORG" ] && { echo "Need to set APIGEE_ORG"; exit 1; }
 
+echo "The passed in credentials are $APIGEE_USER and $APIGEE_PW"
 APIGEE_ENV=test
 PROXY_NAME=catalog
 PRODUCT_NAME=catalog-Product
@@ -13,7 +14,7 @@ APP_NAME="Product-App"
 
 # Upload New Proxy
 echo "====Uploading new proxy 'catalog'===="
-uploadResponse=$(curl -X POST --fail -u ${APIGEE_USER}:${APIGEE_PW} -F "file=@apiproxy.zip" "https://api.enterprise.apigee.com/v1/organizations/${APIGEE_ORG}/apis?action=import&name=${PROXY_NAME}")
+uploadResponse=$(curl -X POST --fail -u "${APIGEE_USER}:${APIGEE_PW}" -F "file=@apiproxy.zip" "https://api.enterprise.apigee.com/v1/organizations/${APIGEE_ORG}/apis?action=import&name=${PROXY_NAME}")
 revision=$( jq -r  '.revision' <<< "${uploadResponse}" )
 echo ""
 echo "====Upload complete - revision: ${revision}===="
@@ -25,14 +26,14 @@ echo ""
 echo "====Deployment complete===="
 
 echo "====Cleaning up app, developer, and product===="
-curl -X DELETE -u ${APIGEE_USER}:${APIGEE_PW} "https://api.enterprise.apigee.com/v1/organizations/${APIGEE_ORG}/developers/alice.smith@example.com/apps/${APP_NAME}"
-curl -X DELETE -u ${APIGEE_USER}:${APIGEE_PW} "https://api.enterprise.apigee.com/v1/organizations/${APIGEE_ORG}/developers/alice.smith@example.com"
-curl -X DELETE -u ${APIGEE_USER}:${APIGEE_PW} "https://api.enterprise.apigee.com/v1/organizations/${APIGEE_ORG}/apiproducts/${PRODUCT_NAME}"
+curl -X DELETE -u "${APIGEE_USER}:${APIGEE_PW}" "https://api.enterprise.apigee.com/v1/organizations/${APIGEE_ORG}/developers/alice.smith@example.com/apps/${APP_NAME}"
+curl -X DELETE -u "${APIGEE_USER}:${APIGEE_PW}" "https://api.enterprise.apigee.com/v1/organizations/${APIGEE_ORG}/developers/alice.smith@example.com"
+curl -X DELETE -u "${APIGEE_USER}:${APIGEE_PW}" "https://api.enterprise.apigee.com/v1/organizations/${APIGEE_ORG}/apiproducts/${PRODUCT_NAME}"
 echo "====Cleanup completed===="
 
 # Create Product
 echo "====Creating product: ${PRODUCT_NAME}===="
-curl -X POST --fail -u ${APIGEE_USER}:${APIGEE_PW} --header "Content-Type: application/json" -d "{
+curl -X POST --fail -u "${APIGEE_USER}:${APIGEE_PW}" --header "Content-Type: application/json" -d "{
   \"name\" : \"${PRODUCT_NAME}\",
   \"displayName\": \"${PRODUCT_NAME}\",
   \"approvalType\": \"auto\",
@@ -51,7 +52,7 @@ echo "====Product created===="
 
 # Create Developer
 echo "====Creating developer===="
-curl -X POST --fail -u ${APIGEE_USER}:${APIGEE_PW} --header "Content-Type: application/json" -d "{
+curl -X POST --fail -u "${APIGEE_USER}:${APIGEE_PW}" --header "Content-Type: application/json" -d "{
  \"email\" : \"alice.smith@example.com\",
  \"firstName\" : \"Alice\",
  \"lastName\" : \"Smith\",
@@ -63,7 +64,7 @@ echo "====Developer created===="
 
 # Create App
 echo "====Creating app: ${APP_NAME}===="
-app=$(curl -X POST --fail -u ${APIGEE_USER}:${APIGEE_PW} --header "Content-Type: application/json" -d "{
+app=$(curl -X POST --fail -u "${APIGEE_USER}:${APIGEE_PW}" --header "Content-Type: application/json" -d "{
  \"name\" : \"${APP_NAME}\",
  \"apiProducts\": [ \"${PRODUCT_NAME}\"],
  \"keyExpiresIn\" : -1,
