@@ -2,9 +2,26 @@
 set -e
 
 echo "====Starting Apigee Rewind Script===="
-[ -z "$APIGEE_USER" ] && { echo "Need to set APIGEE_USER"; exit 1; }
-[ -z "$APIGEE_PW" ] && { echo "Need to set APIGEE_PW"; exit 1; }
-[ -z "$APIGEE_ORG" ] && { echo "Need to set APIGEE_ORG"; exit 1; }
+# [ -z "$APIGEE_USER" ] && { echo "Need to set APIGEE_USER"; exit 1; }
+# [ -z "$APIGEE_PW" ] && { echo "Need to set APIGEE_PW"; exit 1; }
+# [ -z "$APIGEE_ORG" ] && { echo "Need to set APIGEE_ORG"; exit 1; }
+
+if [ -z "$APIGEE_ORG" ]
+  then
+    echo "Enter orgname: (gaccelerate1)"
+    read APIGEE_ORG
+fi
+if [ -z "$APIGEE_USER" ]
+  then
+    echo "Enter username:"
+    read APIGEE_USER
+fi
+if [ -z "$APIGEE_PW" ]
+  then
+    echo "Enter password:"
+    read -s APIGEE_PW
+fi
+
 
 APIGEE_ENV=test
 PROXY_NAME=catalog
